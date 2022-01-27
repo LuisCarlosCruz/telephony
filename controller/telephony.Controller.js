@@ -1,3 +1,4 @@
+const { StatusCodes } = require('http-status-codes')
 const validateBody = require('../service/validateBody.Service')
 
 const { valueCall } = require("../service/telephony.Service");
@@ -7,7 +8,7 @@ const getValueCall = async (req, res, next) => {
 
   const body = await validateBody(origin, destination, plan, time);
 
-  body !== true && next({ status: 400 , message: `invalid ${body}` });
+  body !== true && next({ status: StatusCodes.BAD_REQUEST , message: `invalid ${body}` });
 
   try {
     // const value = await valueCall();
