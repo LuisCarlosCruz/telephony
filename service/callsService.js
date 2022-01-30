@@ -6,31 +6,28 @@ const getAllDDD = async () => {
 };
 
 const getPlans = async () => {
-  try {
-    const plans = await callsModel.getPlans();
-    return plans;
-  } catch (err) {
-    return null;
-  }
+  const plans = await callsModel.getPlans();
+  return plans;
 };
+// =========================================
 
-const validateBody = (origin, destination, plan, time) => {
-  if(!origin) return 'origin';
-  if(!destination) return 'destination';
-  if(!plan) return 'plan';
-  if(!time) return 'time';
-  return true;
-};
+// const validateBody = (origin, destination, plan, time) => {
+//   if(!origin) return 'origin';
+//   if(!destination) return 'destination';
+//   if(!plan) return 'plan';
+//   if(!time) return 'time';
+//   return true;
+// };
 
-const callValue = async ( origin, destination, plan, time) => {
-    const value = await callsModel.callValue(origin, destination, plan)
-    if(!value) return null;
+// const callValue = async ( origin, destination, plan, time) => {
+//     const value = await callsModel.callValue(origin, destination, plan)
+//     if(!value) return null;
 
-    // const [call, selectPlan] = value;
-    return value;
-};
-
-
+//     // const [call, selectPlan] = value;
+//     return value;
+// };
 
 
-module.exports = { validateBody, getAllDDD, getPlans, callValue };
+
+
+module.exports = {  getAllDDD, getPlans };
