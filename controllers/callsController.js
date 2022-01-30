@@ -18,32 +18,39 @@ const getPlans = async (_req, res, next) => {
     return next({ status: StatusCodes.NOT_FOUND , message: `Error` });
   }
 };
+
 // =====================================================================
 
 
 
-// const callValue = async (req, res, next) => {
-//   try {
-//     const { origin, destination, plan, time } = req.body;
+const callValue = async (req, res, next) => {
+  try {
+    const { origin, destination, plan, time } = req.body;
+    console.log(origin, destination, plan, time);
+
     
-//     const body = await callsService.validateBody(origin, destination, plan, time);
+
+
+    next()
     
-//     body !== true && next({ status: StatusCodes.BAD_REQUEST , message: `invalid ${body}` }); 
+    // const body = await callsService.validateBody(origin, destination, plan, time);
     
-//     const call = callsService.callValue(origin, destination, plan, time);
+    // body !== true && next({ status: StatusCodes.BAD_REQUEST , message: `invalid ${body}` }); 
+    
+    // const call = callsService.callValue(origin, destination, plan, time);
 
-//     call === null && next({ status: StatusCodes.SERVICE_UNAVAILABLE, message: `Service Unavailable`})
-
-
-
-//     return res.status(StatusCodes.OK).json(call);
-
-//   } catch (err) {
-//     return next({ status: StatusCodes.NO_CONTENT , message: `Error: ${err}` })
-//   }
+    // call === null && next({ status: StatusCodes.SERVICE_UNAVAILABLE, message: `Service Unavailable`})
 
 
 
-// };
+    // return res.status(StatusCodes.OK).json(call);
 
-module.exports = { getDDD, getPlans };
+  } catch (err) {
+    return next({ status: StatusCodes.NO_CONTENT , message: `Error: ${err}` })
+  }
+
+
+
+};
+
+module.exports = { getDDD, getPlans, callValue };
