@@ -26,8 +26,6 @@ validationRules = [
 ];
 
 checkRules = (req, res, next) => {
-  console.log(req.query, 'QUERY');
-
   const err = validationResult(req);
   if (!err.isEmpty()) return res.status(400).json({ message: err.array()});
   next();

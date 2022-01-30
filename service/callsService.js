@@ -9,9 +9,8 @@ const getPlans = async () => {
   const plans = await callsModel.getPlans();
   return plans;
 };
-// =========================================
 
-const callValue = async ({ origin, destination, plan, }) => {
+const callValue = async (origin, destination, plan) => {
     const res = await callsModel.callValue(origin, destination);
 
     const typeplan = await callsModel.selectPlan(plan);

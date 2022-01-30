@@ -19,23 +19,18 @@ const getPlans = async (_req, res, next) => {
   }
 };
 
-// =====================================================================
-
-
-
 const callValue = async (req, res, next) => {
   try {
-    const { origin, dest, plan, time } = req.params;
-    console.log(origin, dest, plan, time);
+    const { origin, destination, plan, time } = req.query;
 
-    // console.log(bodyJson);
+    const [body] = await callsService.callValue(origin, destination, plan);
+    const { callPrices, selectPlan } = body;
 
-    // const body = await callsService.callValue(bodyJson);
+    if(callPrices === undefined || callPrices === undefined) {
+      return res.status(StatusCodes.NO_CONTENT).json({ message: 'NO_CONTENT'});
+    }
 
-    // console.log(body, 'CONTROLLER');
-    
-
-    next();
+    return res.status(StatusCodes.OK).json(body);
   } catch (err) {
     return next({ status: StatusCodes.NO_CONTENT , message: `Error: ${err}` })
   }

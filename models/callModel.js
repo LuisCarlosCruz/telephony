@@ -10,8 +10,6 @@ const getPlans = async () => {
   return row;
 };
 
-// =======================================
-
 const callValue = async (origin, destination) => {
 
   const [call] = await connection.execute(`
@@ -26,12 +24,5 @@ const selectPlan = async (plan) => {
   const [typePlan] = await connection.execute(`SELECT * FROM plans WHERE plan_name = ? `, [plan]);
   return typePlan;
 };
-
-
-
-
-
-
-
 
 module.exports = { getAllDDD, getPlans,  callValue, selectPlan };
