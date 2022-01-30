@@ -25,32 +25,20 @@ const getPlans = async (_req, res, next) => {
 
 const callValue = async (req, res, next) => {
   try {
-    const { origin, destination, plan, time } = req.body;
-    console.log(origin, destination, plan, time);
+    const { origin, dest, plan, time } = req.params;
+    console.log(origin, dest, plan, time);
 
+    // console.log(bodyJson);
+
+    // const body = await callsService.callValue(bodyJson);
+
+    // console.log(body, 'CONTROLLER');
     
 
-
-    next()
-    
-    // const body = await callsService.validateBody(origin, destination, plan, time);
-    
-    // body !== true && next({ status: StatusCodes.BAD_REQUEST , message: `invalid ${body}` }); 
-    
-    // const call = callsService.callValue(origin, destination, plan, time);
-
-    // call === null && next({ status: StatusCodes.SERVICE_UNAVAILABLE, message: `Service Unavailable`})
-
-
-
-    // return res.status(StatusCodes.OK).json(call);
-
+    next();
   } catch (err) {
     return next({ status: StatusCodes.NO_CONTENT , message: `Error: ${err}` })
   }
-
-
-
 };
 
 module.exports = { getDDD, getPlans, callValue };

@@ -12,23 +12,20 @@ const getPlans = async () => {
 
 // =======================================
 
-// const callValue = async (origin, destination, plan) => {
-//     const [id_origin] = await connection.execute(
-//   `SELECT id_DDD FROM DDD WHERE code_DDD = ?`, [origin]);
-//     const idOrigin = id_origin[0].id_DDD;
-  
-//     const [id_destination] = await connection.execute(
-//   `SELECT id_DDD FROM DDD WHERE code_DDD = ?`, [destination]);
-//     const idDestination = id_destination[0].id_DDD;
-  
-//     const [id_call] = await connection.execute(
-//   `SELECT * FROM calls WHERE origin_id_DDD = ? AND destination_id_DDD = ?`, [idOrigin, idDestination]);
-  
-//     const [plan_name] = await connection.execute(`SELECT * FROM plans WHERE plan_name = ?`, [plan]);
+const callValue = async (origin, destination) => {
 
-//     // console.log([id_call[0], plan_name[0]]);
-//     return [id_call[0], plan_name[0]];
-// };
+  const [call] = await connection.execute(`
+SELECT * 
+FROM fixed_price
+WHERE origin_id_DDD = (SELECT id_DDD FROM DDD WHERE code_DDD = ?)
+AND destination_id_DDD = (SELECT id_DDD FROM DDD WHERE code_DDD = ?)`, [origin, destination]);
+  return call;
+};
+
+const selectPlan = async (plan) => {
+  const [typePlan] = await connection.execute(`SELECT * FROM plans WHERE plan_name = ? `, [plan]);
+  return typePlan;
+};
 
 
 
@@ -37,4 +34,4 @@ const getPlans = async () => {
 
 
 
-module.exports = { getAllDDD, getPlans /* ,  callValue */};
+module.exports = { getAllDDD, getPlans,  callValue, selectPlan };

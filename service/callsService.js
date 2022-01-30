@@ -11,23 +11,12 @@ const getPlans = async () => {
 };
 // =========================================
 
-// const validateBody = (origin, destination, plan, time) => {
-//   if(!origin) return 'origin';
-//   if(!destination) return 'destination';
-//   if(!plan) return 'plan';
-//   if(!time) return 'time';
-//   return true;
-// };
+const callValue = async ({ origin, destination, plan, }) => {
+    const res = await callsModel.callValue(origin, destination);
 
-// const callValue = async ( origin, destination, plan, time) => {
-//     const value = await callsModel.callValue(origin, destination, plan)
-//     if(!value) return null;
+    const typeplan = await callsModel.selectPlan(plan);
 
-//     // const [call, selectPlan] = value;
-//     return value;
-// };
+    return [ { callPrices: res[0], selectPlan: typeplan[0] } ];
+};
 
-
-
-
-module.exports = {  getAllDDD, getPlans };
+module.exports = {  getAllDDD, getPlans, callValue };
