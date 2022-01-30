@@ -32,8 +32,20 @@ const callValue = async (req, res, next) => {
 
     return res.status(StatusCodes.OK).json(body);
   } catch (err) {
-    return next({ status: StatusCodes.NO_CONTENT , message: `Error: ${err}` })
+    return next({ status: StatusCodes.NO_CONTENT , message: `Error: ${err}` });
   }
 };
 
-module.exports = { getDDD, getPlans, callValue };
+const callPossible = async (req, res, next) => {
+  const { id } = req.params;
+  
+  try {
+    const [callPossible] = await callsService.callPossible(id);
+    return res.status(StatusCodes.OK).json(callPossible);
+
+  } catch (err) {
+    return next({ status: StatusCodes.NO_CONTENT , message: `Error: ${err}` });
+  }
+}
+
+module.exports = { getDDD, getPlans, callValue, callPossible };
