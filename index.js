@@ -1,6 +1,6 @@
 const express = require('express');
 const { body, validationResult, param, query } = require('express-validator');
-const cors = require('cors')
+const cors = require('cors');
 
 const app = express();
 const PORT = 3001;
@@ -8,11 +8,13 @@ app.use(express.json());
 app.use(cors());
 
 const { err } = require('./middlewares/errMiddleware');
-const { getDDD, getPlans, callValue } = require('./controllers/callsController');
+const { getDDD, getPlans, callValue, callPossible } = require('./controllers/callsController');
 
-app.use('/DDD', getDDD);
+app.get('/DDD/:id', callPossible);
 
-app.use('/plans', getPlans);
+app.get('/DDD', getDDD);
+
+app.get('/plans', getPlans);
 
 // ================= VALIDACAO PARAMS ===================
 validationRules = [
@@ -31,7 +33,7 @@ checkRules = (req, res, next) => {
   next();
 }
 
-app.use('/callvalue/calls', validationRules, checkRules,  callValue);
+app.get('/callvalue/calls', validationRules, checkRules,  callValue);
 
 app.use(err);
 

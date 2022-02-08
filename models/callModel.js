@@ -25,4 +25,13 @@ const selectPlan = async (plan) => {
   return typePlan;
 };
 
-module.exports = { getAllDDD, getPlans,  callValue, selectPlan };
+const callPossible = async (id) => {
+
+  const call = await connection.execute(`
+SELECT destination_id_DDD
+FROM fixed_price
+WHERE origin_id_DDD = (SELECT id_DDD FROM DDD WHERE code_DDD = ?)`, [id]);
+  return call;
+}
+
+module.exports = { getAllDDD, getPlans,  callValue, selectPlan, callPossible };

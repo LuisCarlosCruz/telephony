@@ -18,4 +18,9 @@ const callValue = async (origin, destination, plan) => {
     return [ { callPrices: res[0], selectPlan: typeplan[0] } ];
 };
 
-module.exports = {  getAllDDD, getPlans, callValue };
+const callPossible = async (id) => {
+  const call = await callsModel.callPossible(id);
+  return call;
+}
+
+module.exports = {  getAllDDD, getPlans, callValue, callPossible };
